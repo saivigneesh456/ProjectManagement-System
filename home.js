@@ -8,7 +8,7 @@ var taskObj = {
             return;
         }
 
-        var data = localStorage.getItem(this.key) ? JSON.parse(localStorage.getItem(this.key)) : [];
+        var data = this.getAllProjects();
         var project = {
             id: data.length,
             name: projectName,
@@ -18,8 +18,8 @@ var taskObj = {
         data.push(project);
         localStorage.setItem(this.key, JSON.stringify(data));
 
-        this.loadAllProjects();
         this.showAllTasks();
+        this.loadAllProjects();
     },
 
     addTask: function () {
@@ -48,6 +48,16 @@ var taskObj = {
         }
     },
 
+    deleteTask: function (projectId, taskId) {
+        var projects = this.getAllProjects();
+        var project = projects.find(p => p.id == projectId);
+        if (project) {
+            project.tasks = project.tasks.filter(task => task.id !== taskId);
+            localStorage.setItem(this.key, JSON.stringify(projects));
+            this.showAllTasks();
+        }
+    },
+
     getAllProjects: function () {
         return JSON.parse(localStorage.getItem(this.key)) || [];
     },
@@ -59,32 +69,6 @@ var taskObj = {
             html += "<option value='" + projects[i].id + "'>" + projects[i].name + "</option>";
         }
         document.getElementById("add-task-project").innerHTML = html;
-    },
-
-    showAllTasks: function () {
-        var projects = this.getAllProjects();
-        var html = "";
-        for (var i = 0; i < projects.length; i++) {
-            var tasks = projects[i].tasks;
-            for (var j = 0; j < tasks.length; j++) {
-                html += "<div>";
-                html += "<strong>Task Name:</strong> " + tasks[j].name + "<br>";
-                html += "<strong>Project Name:</strong> " + projects[i].name + "<br>";
-                html += "<strong>Status:</strong> " + tasks[j].status + "<br>";
-                html += "</div>";
-            }
-        }
-        document.getElementById("all-tasks").innerHTML = html;
-    },
-
-    deleteTask: function (projectId, taskId) {
-        var projects = this.getAllProjects();
-        var project = projects.find(p => p.id == projectId);
-        if (project) {
-            project.tasks = project.tasks.filter(task => task.id !== taskId);
-            localStorage.setItem(this.key, JSON.stringify(projects));
-            this.showAllTasks();
-        }
     },
 
     showAllTasks: function () {
@@ -105,8 +89,6 @@ var taskObj = {
         document.getElementById("all-tasks").innerHTML = html;
     }
 };
-
-
 
 window.addEventListener("load", function () {
     taskObj.loadAllProjects();
