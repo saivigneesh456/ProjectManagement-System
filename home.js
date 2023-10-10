@@ -75,8 +75,38 @@ var taskObj = {
             }
         }
         document.getElementById("all-tasks").innerHTML = html;
+    },
+
+    deleteTask: function (projectId, taskId) {
+        var projects = this.getAllProjects();
+        var project = projects.find(p => p.id == projectId);
+        if (project) {
+            project.tasks = project.tasks.filter(task => task.id !== taskId);
+            localStorage.setItem(this.key, JSON.stringify(projects));
+            this.showAllTasks();
+        }
+    },
+
+    showAllTasks: function () {
+        var projects = this.getAllProjects();
+        var html = "<table><tr><th>Task Name</th><th>Project Name</th><th>Status</th><th>Action</th></tr>";
+        for (var i = 0; i < projects.length; i++) {
+            var tasks = projects[i].tasks;
+            for (var j = 0; j < tasks.length; j++) {
+                html += "<tr>";
+                html += "<td>" + tasks[j].name + "</td>";
+                html += "<td>" + projects[i].name + "</td>";
+                html += "<td>" + tasks[j].status + "</td>";
+                html += "<td><button onclick='taskObj.deleteTask(" + projects[i].id + "," + tasks[j].id + ")'>Delete Task</button></td>";
+                html += "</tr>";
+            }
+        }
+        html += "</table>";
+        document.getElementById("all-tasks").innerHTML = html;
     }
 };
+
+
 
 window.addEventListener("load", function () {
     taskObj.loadAllProjects();
