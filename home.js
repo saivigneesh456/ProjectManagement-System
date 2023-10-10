@@ -13,6 +13,7 @@ var taskObj = {
         var project = {
             id: data.length,
             name: projectName,
+        
             tasks: []
         };
 
