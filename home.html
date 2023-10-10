@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management System</title>
+    <link rel="stylesheet" href="home.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="project-section">
+            <input type="text" id="add-project" placeholder="Enter Project Name">
+            <button onclick="taskObj.addProject()">Add Project</button>
+        </div>
+
+        <div class="task-section">
+            <select id="add-task-project"></select>
+            <input type="text" id="add-task" placeholder="Enter Task">
+            <button onclick="taskObj.addTask()">Add Task</button>
+        </div>
+
+        <div id="all-tasks"></div>
+    </div>
+
+    <script src="home.js"></script>
+</body>
+
+</html>
