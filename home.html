@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Management System</title>
+    <title>Project Management System</title>
     <link rel="stylesheet" href="home.css">
 </head>
 
 <body>
     <div class="container">
+        <h1> Project Management System</h1>
         <div class="project-section">
             <input type="text" id="add-project" placeholder="Enter Project Name">
             <button onclick="taskObj.addProject()">Add Project</button>
@@ -17,9 +18,10 @@
 
         <div class="task-section">
             <select id="add-task-project"></select>
-            <input type="text" id="add-task" placeholder="Enter Task">
-            <button onclick="taskObj.addTask()">Add Task</button>
+            <input type="text" id="add-task" placeholder="Enter User">
+            <button onclick="taskObj.addTask()">Add User</button>
         </div>
+        
 
         <div id="all-tasks"></div>
     </div>
